@@ -22,6 +22,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: IndexedStack(index: index, children: pages),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
