@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/utils/category_icon_helper.dart';
 import '../../../domain/entities/expense_entity.dart';
 import '../../providers/expense_provider.dart';
 
@@ -399,6 +400,8 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                                 time: DateFormat(
                                   'hh:mm a',
                                 ).format(expense.date),
+                                icon: getCategoryIcon(expense.category),
+                                color: getCategoryColor(expense.category),
                               );
                             },
                           ),
@@ -477,6 +480,8 @@ class SectionTitle extends StatelessWidget {
 /// 💳 EXPENSE CARD
 class ExpenseCard extends StatelessWidget {
   final String title, category, amount, time;
+  final IconData icon;
+  final Color color;
 
   const ExpenseCard({
     super.key,
@@ -484,6 +489,8 @@ class ExpenseCard extends StatelessWidget {
     required this.category,
     required this.amount,
     required this.time,
+    required this.icon,
+    required this.color,
   });
 
   @override
@@ -509,10 +516,10 @@ class ExpenseCard extends StatelessWidget {
             width: 46,
             height: 46,
             decoration: BoxDecoration(
-              color: AppColors.primary.withAlpha(20),
+              color: color.withAlpha(20),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.shopping_bag, color: AppColors.primary),
+            child: Icon(icon, color: color),
           ),
 
           const SizedBox(width: 10),

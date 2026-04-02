@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/expense_provider.dart';
 import '../../../domain/entities/expense_entity.dart';
+import '../../widgets/category_icon.dart';
 
 class AddExpensePage extends ConsumerStatefulWidget {
   const AddExpensePage({super.key});
@@ -385,12 +386,11 @@ class _AddExpensePageState extends ConsumerState<AddExpensePage> {
                                       value: category,
                                       child: Row(
                                         children: [
-                                          const Icon(
-                                            Icons.category_outlined,
-                                            size: 18,
-                                            color: Color(0xFF738099),
+                                          CategoryIcon(
+                                            category: category,
+                                            size: 32,
                                           ),
-                                          const SizedBox(width: 10),
+                                          const SizedBox(width: 12),
                                           Text(category),
                                         ],
                                       ),

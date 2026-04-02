@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/utils/category_icon_helper.dart';
 import '../../providers/expense_provider.dart';
 import '../add_expense/add_expense_page.dart';
 import '../splash/splash_screen.dart';
@@ -515,8 +516,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 category: expense.category,
                                 amount: expense.amount.toStringAsFixed(0),
                                 time: DateFormat('dd MMM').format(expense.date),
-                                icon: _categoryIcon(expense.category),
-                                color: _categoryColor(expense.category),
+                                icon: getCategoryIcon(expense.category),
+                                color: getCategoryColor(expense.category),
                               );
                             },
                           ),
@@ -698,40 +699,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         );
       },
     );
-  }
-
-  IconData _categoryIcon(String category) {
-    switch (category.toLowerCase()) {
-      case 'food':
-      case 'groceries':
-        return Icons.restaurant;
-      case 'shopping':
-        return Icons.shopping_bag;
-      case 'transport':
-      case 'travel':
-        return Icons.directions_car;
-      case 'bills':
-        return Icons.receipt;
-      default:
-        return Icons.category;
-    }
-  }
-
-  Color _categoryColor(String category) {
-    switch (category.toLowerCase()) {
-      case 'food':
-      case 'groceries':
-        return Colors.orange;
-      case 'shopping':
-        return Colors.blue;
-      case 'transport':
-      case 'travel':
-        return Colors.green;
-      case 'bills':
-        return Colors.purple;
-      default:
-        return AppColors.primary;
-    }
   }
 
   Widget _buildChip(String text) {
