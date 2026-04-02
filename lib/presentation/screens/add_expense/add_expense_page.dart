@@ -38,7 +38,7 @@ class _AddExpensePageState extends ConsumerState<AddExpensePage> {
     super.dispose();
   }
 
-  void save() {
+  Future<void> save() async {
     final parsedAmount = double.tryParse(amount.text.trim());
 
     if (title.text.trim().isEmpty || parsedAmount == null) {
@@ -48,18 +48,27 @@ class _AddExpensePageState extends ConsumerState<AddExpensePage> {
       return;
     }
 
-    ref
-        .read(expenseProvider.notifier)
-        .addExpense(
-          ExpenseEntity(
-            id: DateTime.now().toString(),
-            title: title.text.trim(),
-            amount: parsedAmount,
-            category: selectedCategory,
-            date: selectedDate,
-          ),
-        );
+    try {
+      await ref
+          .read(expenseProvider.notifier)
+          .addExpense(
+            ExpenseEntity(
+              id: DateTime.now().toString(),
+              title: title.text.trim(),
+              amount: parsedAmount,
+              category: selectedCategory,
+              date: selectedDate,
+            ),
+          );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to save expense: $e')));
+      return;
+    }
 
+    if (!mounted) return;
     Navigator.pop(context);
   }
 
@@ -283,7 +292,10 @@ class _AddExpensePageState extends ConsumerState<AddExpensePage> {
                           onChanged: (_) => setState(() {}),
                           decoration: InputDecoration(
                             hintText: 'Enter amount',
-                            prefixIcon: const Icon(Icons.currency_rupee, size: 15),
+                            prefixIcon: const Icon(
+                              Icons.currency_rupee,
+                              size: 15,
+                            ),
                             filled: true,
                             fillColor: _fieldColor,
                             border: OutlineInputBorder(

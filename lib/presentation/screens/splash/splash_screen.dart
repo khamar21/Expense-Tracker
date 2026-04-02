@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
             const Spacer(),
 
-            /// 💎 ICON WITH GLOW
+            ///  ICON WITH GLOW
             Container(
               width: 90,
               height: 90,
@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
             const SizedBox(height: 8),
 
-            /// 📝 SUBTITLE
+            ///  SUBTITLE
             const Text(
               "Track your money smartly",
               style: TextStyle(
@@ -89,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
             const Spacer(),
 
-            /// 🔘 DOT INDICATOR
+            ///  DOT INDICATOR
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -101,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
             const SizedBox(height: 10),
 
-            /// 🧾 FOOTER TEXT
+            ///  FOOTER TEXT
             const Text(
               "INITIALIZING LEDGER",
               style: TextStyle(
@@ -118,7 +118,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  /// 🔘 DOT
+  ///  DOT
   static Widget dot(bool active) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),

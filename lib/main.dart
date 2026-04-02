@@ -7,6 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('expenses');
+  await Hive.openBox('settings');
 
   runApp(const ProviderScope(child: MyApp()));
 }

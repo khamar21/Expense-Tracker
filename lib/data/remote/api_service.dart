@@ -1,22 +1,29 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://10.0.2.2:8000';
+  static const String baseUrl = "http://192.168.31.37:8000";
 
-  /// ADD EXPENSE
-  static Future<void> addExpense(String title, double amount) async {
-    await http.post(
-      Uri.parse('$baseUrl/add'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'title': title, 'amount': amount}),
-    );
+  Future<List<dynamic>> getExpenses() async {
+    final res = await http.get(Uri.parse('$baseUrl/expenses/'));
+    if (res.statusCode != 200) {
+      throw Exception(
+        'Failed to fetch expenses: ${res.statusCode} ${res.body}',
+      );
+    }
+
+    return jsonDecode(res.body) as List<dynamic>;
   }
 
-  /// GET EXPENSES
-  static Future<List<dynamic>> getExpenses() async {
-    final response = await http.get(Uri.parse('$baseUrl/all'));
-    return jsonDecode(response.body) as List<dynamic>;
+  Future<void> addExpense(Map<String, dynamic> data) async {
+    final res = await http.post(
+      Uri.parse('$baseUrl/expenses/'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
+    );
+
+    if (res.statusCode != 200 && res.statusCode != 201) {
+      throw Exception('Failed to add expense: ${res.statusCode} ${res.body}');
+    }
   }
 }
